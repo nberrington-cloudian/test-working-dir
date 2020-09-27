@@ -30,12 +30,16 @@ jobs:
 
       - name: run tests
         run: go test -json ./... > test.json
+        # optional if go code not at top level
+        # working-directory: subdir
 
       - name: annotate tests
         if: always()
         uses: guyarb/golang-test-annoations@v0.1
         with:
           test-results: test.json
+          # optional if go code not at top level
+          # working-directory: subdir
 ```
 
 ## Development of this action

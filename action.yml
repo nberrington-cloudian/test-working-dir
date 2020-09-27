@@ -5,6 +5,10 @@ inputs:
     description: 'The path of the go test results'
     required: true
     default: 'test.json'
+  working-directory:
+    description: 'The directory the test was run in'
+    required: false
+    default: ''
 runs:
   using: 'node12'
   main: 'index.js'

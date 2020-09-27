@@ -1,11 +1,13 @@
 const core = require('@actions/core');
 const lineReader = require('line-by-line');
+const path = require('path')
 
 try {
 	const testResultsPath = core.getInput('test-results');
+	const workingDir = core.getInput('working-directory')
 
 	var obj = new Object();
-	var lr = new lineReader(testResultsPath);
+	var lr = new lineReader(path.join(workingDir, testResultsPath));
 	lr.on('line', function(line) {
 		const currentLine = JSON.parse(line);
 		var testName = currentLine.Test;
@@ -33,7 +35,7 @@ try {
 				const parts = value.split("%0A")[1].trim().split(":");
 				const file = key.split("/").slice(0, -1).join("/") + "/" + parts[0];
 				const lineNumber = parts[1];
-				core.info(`::error file=${file},line=${lineNumber}::${value}`)
+				core.info(`::error file=${path.join(workingDir, file)},line=${lineNumber}::${value}`)
 			}
 		}
 	});
