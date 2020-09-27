@@ -35,6 +35,8 @@ try {
 				const parts = value.split("%0A")[1].trim().split(":");
 				const file = key.split("/").slice(0, -1).join("/") + "/" + parts[0];
 				const lineNumber = parts[1];
+				console.log(key, value)
+				console.log(parts, file, lineNumber)
 				core.info(`::error file=${path.join(workingDir, file)},line=${lineNumber}::${value}`)
 			}
 		}
